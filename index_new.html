@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Rich Clone</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #182533;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .btn {
+            background: linear-gradient(135deg, #fbc531, #f7b731);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(247, 183, 49, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn" id="share-btn">Выбрать получателей...</button>
+
+    <script>
+        // Инициализируем Telegram Web App
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand(); // Расширяем на весь экран
+
+        document.getElementById('share-btn').addEventListener('click', () => {
+            // Используем нативный метод Web App для отправки инлайн-запроса в выбранный чат.
+            // На телефонах это открывает меню, отправляющее сообщение СРАЗУ после выбора чата,
+            // если у бота правильно настроен inline-фидбек (через prepared message).
+            tg.switchInlineQuery("send_post", ["users", "groups", "channels"]);
+        });
+    </script>
+</body>
+</html>
